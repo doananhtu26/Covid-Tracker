@@ -1,10 +1,11 @@
 import React, {useState,useEffect} from 'react';
 import HighchartsReact  from 'highcharts-react-official';
 import Highchart  from 'highcharts';
+import moment from 'moment';
 
-
-const generateOptions =(data) =>{
-    const categories =[];
+const generateOptions =(data) => {
+    const categories = data.map((item) =>moment(item.Date).format('DD/MM/YYYY'));
+    console.log({categories});
     return {
         chart: {
           height: 500,
@@ -53,6 +54,7 @@ const generateOptions =(data) =>{
 
 
  const LineChart = ({data}) => {
+    console.log('LineChart',{data})
     const [options,setOptions] = useState([]);
     useEffect(() => {
         setOptions(generateOptions(data));
@@ -61,7 +63,7 @@ const generateOptions =(data) =>{
         <div>
             <HighchartsReact
                 highcharts={Highchart}
-                option={options}
+                options={options}
             />
         </div>
     )
