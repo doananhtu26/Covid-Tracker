@@ -1,9 +1,10 @@
-import React, {useState,useEffect} from 'react';
-import Highchart from 'highcharts';
+import React, {useState,useEffect,useRef} from 'react';
+import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highchartsMap from 'highcharts/modules/map';
+import {cloneDeep} from 'lodash';
 
-highchartsMap(Highchart);
+highchartsMap(Highcharts);
 
 const initOptions = {
     chart: {
@@ -32,25 +33,30 @@ const initOptions = {
     },
     series: [
       {
-        mapData: {},  
-        name: 'Dân số',
+        mapData: {},
+        name: 'People',
         joinBy: ['hc-key', 'key'],
       },
     ],
   };
 
-export default function HighMaps({mapData}) {
+ const HighMaps = ({mapData}) => {
     const[options, setOptions] = useState({});
+    const chartRef = useRef(null);
+    const[configLoaded,setConfigLoaded] = useState(false);
    
-
     useEffect(() => {
         if(mapData && Object.keys(mapData).length){
-        const fakeData = mapData.features.map((features,index)=>({
-            key:features.properties['hc-key'],
-            value:index,    
+          console.log({mapData});
+        const fakeData = mapData.features.map((feature,index)=>({
+            key: feature.properties['hc-key'],
+            value: index,    
     }));
-        setOptions(()=>({
+        setOptions({
             ...initOptions,
+            title: {
+              text: mapData.title,
+            },
             series: [
             {
             ...initOptions.series[0],
@@ -58,17 +64,31 @@ export default function HighMaps({mapData}) {
             data: fakeData,
             }
         ],
-        }));
+        });
+
+        if(!configLoaded) setConfigLoaded(true);
     }
-    },[mapData]);
+    },[mapData,configLoaded]);
+
+    useEffect(() => {
+      if(chartRef && chartRef.current){
+        chartRef.current.chart.series[0].update({
+          mapData,
+        });
+      }
+    },[mapData,options]);
+
+    if(!configLoaded) return null;
     return (
         <HighchartsReact
-        highcharts={Highchart}
-        options={{}}
-        constructType='mapChart'
-
+        highcharts={Highcharts}
+        options={cloneDeep(options)}
+        constructorType={'mapChart'}
+        ref={chartRef}
         />
-
-        
     )
 }
+HighMaps.defaultProps = {
+  mapData: {},
+};
+export default React.memo(HighMaps);

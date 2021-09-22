@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import HighchartsReact  from 'highcharts-react-official';
-import Highchart  from 'highcharts';
+import Highcharts  from 'highcharts';
 import moment from 'moment';
 
 const generateOptions =(data) => {
@@ -45,7 +45,7 @@ const generateOptions =(data) => {
         // important
         series: [
           {
-            name: "Tổng Ca nhiễm",
+            name: "ToTal Cases",
             data: data.map((item) => item.Confirmed),
           },
         ],
@@ -55,14 +55,14 @@ const generateOptions =(data) => {
 
  const LineChart = ({data}) => {
     console.log('LineChart',{data})
-    const [options,setOptions] = useState([]);
+    const [options,setOptions] = useState({});
     useEffect(() => {
         setOptions(generateOptions(data));
     },[data]);
     return (
         <div>
             <HighchartsReact
-                highcharts={Highchart}
+                highcharts={Highcharts}
                 options={options}
             />
         </div>

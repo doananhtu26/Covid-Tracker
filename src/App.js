@@ -1,12 +1,14 @@
-import React from 'react';
 import CountryPicker from "./components/CountryPicker";
 import Highlight from "./components/Highlight";
 import Summary from "./components/Summary";
-import {useEffect, useState, useMemo} from "react";
-import {getCountries} from "./api";
-import {getReportByCountry} from "./api";
+import React,{useEffect, useState, useMemo} from "react";
+import {getCountries,getReportByCountry} from "./api";
+import { sortBy } from 'lodash';
+import {Container, Typography} from "@material-ui/core";
+import moment from 'moment';
 
-function App() {
+
+const App = () => {
   const [countriesData,setCountriesData] = useState([]);
   const [selectedCountryId,setSelectedCountryId] = useState('');
   const [report,setReport] = useState([]);
@@ -14,10 +16,10 @@ function App() {
   
   useEffect(() => {
     getCountries().then((res) => {
-      console.log({res: res});
-      setCountriesData(res.data);
-
-      setSelectedCountryId('vn');
+    console.log({res: res});
+    const countries = sortBy(res.data, 'Country');
+    setCountriesData(countries);
+    setSelectedCountryId('vn');
     });
   },[]);
 
@@ -33,7 +35,7 @@ function App() {
     getReportByCountry(selectedCountry.Slug).then((res)=>{
       console.log('getReportByCountry', { res });
       res.data.pop();
-      setReport(res.data)
+      setReport(res.data);
     });
   }
   },[selectedCountryId, countriesData]);
@@ -43,17 +45,17 @@ function App() {
       const latestData = report[report.length - 1];
       return [
         {
-          title: 'Số ca nhiễm',
+          title: 'TOTAL CASE',
           count: latestData.Confirmed,
           type: 'confirmed',
         },
         {
-          title: 'Khỏi',
+          title: 'RECOVERED CASE',
           count: latestData.Recovered,
           type: 'recovered',
         },
         {
-          title: 'Tử vong',
+          title: 'DEATHS CASE',
           count: latestData.Deaths,
           type: 'death',
         },
@@ -64,15 +66,21 @@ function App() {
 
 
   return (
-   <div>
+   <Container style={{marginTop: 20}}>
+   <Typography variant="h2" component="h2">
+      COVID-19 Tracker
+   </Typography>
+   <Typography>{moment().format('LLL')}</Typography>
    <CountryPicker
     countriesData={countriesData} 
     handleOnChange={handleOnChange}
     value={selectedCountryId}
     />
    <Highlight summary={summary}/>
-   <Summary report={report}/>
-   </div>
+   <Summary 
+   countryId={selectedCountryId}
+   report={report}/>
+   </Container>
   )
 }
 
