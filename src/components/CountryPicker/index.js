@@ -15,8 +15,8 @@ import React from 'react';
             }}
           >
               {
-                  countriesData.map((country)=>{
-                    return <option key={country.ISO2} value={country.ISO2.toLowerCase()}>{country.Country}</option>;
+                countriesData.map((country)=>{
+                  return <option key={country.ISO2} value={country.ISO2.toLowerCase()}>{country.Country}</option>;
                   })
               }
           </NativeSelect>

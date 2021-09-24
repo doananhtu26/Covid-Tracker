@@ -6,7 +6,7 @@ const useStyles = makeStyles({
     wrapper:(props) =>{
         if(props.type === 'confirmed') return {borderLeft: '5px solid #c9302c'};
         if(props.type === 'recovered') return {borderLeft: '5px solid #28a745'};
-        else return {borderLeft: '5px solid gray'};
+        else return {borderLeft: '5px solid black'};
     },
     title:{
         fontSize: 18,

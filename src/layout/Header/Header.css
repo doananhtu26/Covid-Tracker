@@ -1,0 +1,33 @@
+.navbar{
+    background-color: blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 40px;
+    color: white;
+}
+
+.navbar .navbar__title {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+
+.navbar ul li a {
+    color: white;
+    margin-right: 60px;
+    font-size: 20px; 
+}
+
+.navbar ul li a:hover {
+    color: red;
+    
+}
