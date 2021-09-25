@@ -20,8 +20,7 @@ const Information = () => {
         </Grid>
         
         <Grid item components={Card}>
-        
-        <Card>
+        <Card style={{marginBottom:30, marginTop:30}}>
         <CardActionArea>
         <CardMedia
           component="img"
@@ -44,7 +43,7 @@ const Information = () => {
     </Grid>
     
         <Grid item components={Card}>
-        <Card>
+        <Card style={{marginBottom:30}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -66,7 +65,7 @@ const Information = () => {
     </Grid>
     
         <Grid item components={Card}>
-        <Card>
+        <Card style={{marginBottom:30}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -88,7 +87,7 @@ const Information = () => {
     </Grid>
 
         <Grid item components={Card}>
-        <Card>
+        <Card style={{marginBottom:30}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -110,7 +109,7 @@ const Information = () => {
     
     </Grid>
         <Grid item components={Card}>
-        <Card>
+        <Card style={{marginBottom:30}}>
       <CardActionArea>
         <CardMedia
           component="img"
