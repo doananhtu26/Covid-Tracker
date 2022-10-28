@@ -93,7 +93,7 @@ const Information = () => {
           component="img"
           height="300"
           with="100"
-          image="https://lh3.googleusercontent.com/proxy/pdVk6Apk6vmbjjeJdu1C38YcXRKStAxW4ztLLZQ1-rV2GYKcClQvz8ikX31igrwStc0GJ7Ibbyz2CqvCG-jsMnQLtjh0pcraNcUVKEEN_b4kv9XlGkul_9bvjXckw-7Qub9vS_RS2qDQO96kyu7hCQsZHPD6oVy_57-Q1NN_gHaFNqdDp-g259W481Vwdif0p92u-A"
+          image="https://yenthe.bacgiang.gov.vn/documents/22799/12461665/1640428829558_image+%2815%29.jpeg/901d006b-c535-4f50-82a5-87afdbccd79a?t=1640428829565"
           alt="green iguana"
         />
         <CardContent>

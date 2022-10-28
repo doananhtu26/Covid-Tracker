@@ -7,26 +7,22 @@ import { sortBy } from 'lodash';
 import {Container, Typography} from "@material-ui/core";
 import moment from 'moment';
 
-
-
 const Dashboard = () => {
   const [countriesData,setCountriesData] = useState([]);
   const [selectedCountryId,setSelectedCountryId] = useState('');
   const [report,setReport] = useState([]);
 
-  
   useEffect(() => {
     getCountries().then((res) => {
-    console.log({res: res});
     const countries = sortBy(res.data, 'Country');
     setCountriesData(countries);
     setSelectedCountryId('vn');
     });
   },[]);
 
-  const handleOnChange = (e) =>{
+  const handleOnChange = React.useCallback((e) => {
     setSelectedCountryId(e.target.value);
-  };
+  }, []);
 
   useEffect(() =>{
     if(selectedCountryId){
@@ -42,21 +38,21 @@ const Dashboard = () => {
   },[selectedCountryId, countriesData]);
 
   const summary = useMemo(() => {
-    if (report && report.length) {
+    if (report && report.length > 0 ) {
       const latestData = report[report.length - 1];
       return [
         {
-          title: 'TOTAL CASE',
+          title: 'SỐ CA NHIỄM',
           count: latestData.Confirmed,
           type: 'confirmed',
         },
         {
-          title: 'RECOVERED CASE',
-          count: latestData.Recovered,
+          title: 'KHỎI',
+          count: latestData.Confirmed - latestData.Deaths ,
           type: 'recovered',
         },
         {
-          title: 'DEATHS CASE',
+          title: 'TỬ VONG',
           count: latestData.Deaths,
           type: 'death',
         },
@@ -67,19 +63,20 @@ const Dashboard = () => {
 
 
   return (
-   <Container style={{marginTop: 20}}>
-   <Typography>{moment().format('LLL')}</Typography>
-   <CountryPicker
-    countriesData={countriesData} 
-    handleOnChange={handleOnChange}
-    value={selectedCountryId}
+
+  <Container style={{marginTop: 20}}>
+    <Typography>{moment().format('LLL')}</Typography>
+    <CountryPicker
+      countriesData={countriesData} 
+      handleOnChange={handleOnChange}
+      value={selectedCountryId}
     />
-   <Highlight summary={summary}/>
-   <Summary 
-   countryId={selectedCountryId}
-   report={report}/>
-   </Container>
-  )
+    <Highlight summary={summary}/>
+    <Summary 
+      countryId={selectedCountryId}
+      report={report}/>
+  </Container>
+  );
 }
 
 export default Dashboard;

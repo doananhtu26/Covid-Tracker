@@ -4,9 +4,9 @@ import Highcharts  from 'highcharts';
 import moment from 'moment';
 
 const generateOptions =(data) => {
-    const categories = data.map((item) =>moment(item.Date).format('DD/MM/YYYY'));
+  const categories = data.map((item) =>moment(item.Date).format('DD/MM/YYYY'));
     console.log({categories});
-    return {
+      return {
         chart: {
           height: 500,
         },

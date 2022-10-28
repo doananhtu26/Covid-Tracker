@@ -1,5 +1,5 @@
 import React from 'react';
-import DashBoard from './containers/DashBoard';
+import Dashboard from './containers/DashBoard';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from './layout/Header';
 import Information from './containers/Information';
@@ -12,7 +12,7 @@ function App() {
     <Header />
     <div className="container">
       <Switch>
-        <Route path="/dashboard" exact component={DashBoard} />
+        <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/information" component={Information} />
       </Switch>
     </div>
